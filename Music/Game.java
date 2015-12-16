@@ -1,6 +1,10 @@
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,6 +37,9 @@ public class Game extends JFrame
 		menubar.add(menu1);
 		Container content = getContentPane();
 		content.add(menubar, BorderLayout.NORTH);
+
+//		JButton play = new JButton("Play");
+//		play.addActionListener(new PlayActionListener());
 	}
 
 	public static void main(String[] args)
@@ -89,6 +96,17 @@ public class Game extends JFrame
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
+			File file1 = new File("1.wav");
+			AudioClip sound1 = null;
+			try
+			{
+				sound1 = Applet.newAudioClip(file1.toURL());
+			} catch (MalformedURLException ex)
+			{
+				ex.printStackTrace();
+			}
+			sound1.play();
+			
 			gamePanel.play();
 		}
 	}

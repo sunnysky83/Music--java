@@ -1,9 +1,15 @@
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
@@ -36,15 +42,11 @@ class GamePanel extends JPanel
 	public GamePanel()
 	{
 		construct();
-		
-		restart();
 	}
 	
 	public GamePanel(int num)
 	{
 		construct();
-		
-		restart();
 		
 		setNum(num);
 	}
@@ -62,12 +64,18 @@ class GamePanel extends JPanel
 		key.put('f', 1);
 		key.put('j', 2);
 		key.put('k', 3);
+		
+		time = 0;
+		score = 0;
 	}
 
 	public void restart()
 	{
 		time = 0;
 		score = 0;
+		for (int i=0; i<num; i++)
+			for (int j=0; j<scored.get(i).size(); j++)
+				scored.get(i).set(j, false);
 	}
 	
 	public void resetEnd()
@@ -123,16 +131,16 @@ class GamePanel extends JPanel
 		restart();
 		timer = new Timer(timerFre, new TimerListener());
 		timer.start();
-		System.out.println("start()");
-		System.out.println("timeFall = " + timeFall);
-		System.out.println("end = " + end);
-
-		System.out.println("blockWidth" + blockWidth);
-		System.out.println("blockWidthHalf" + blockWidthHalf);
-		System.out.println("blockHeight" + blockHeight);
-		System.out.println("blockHeightHalf" + blockHeightHalf);
-		System.out.println("timePerfectWidth" + timePerfectWidth);
-		System.out.println("timeWidth" + timeWidth);
+//		System.out.println("start()");
+//		System.out.println("timeFall = " + timeFall);
+//		System.out.println("end = " + end);
+//
+//		System.out.println("blockWidth" + blockWidth);
+//		System.out.println("blockWidthHalf" + blockWidthHalf);
+//		System.out.println("blockHeight" + blockHeight);
+//		System.out.println("blockHeightHalf" + blockHeightHalf);
+//		System.out.println("timePerfectWidth" + timePerfectWidth);
+//		System.out.println("timeWidth" + timeWidth);
 		
 		requestFocus();
 	}
