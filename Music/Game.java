@@ -17,7 +17,8 @@ public class Game extends JFrame
 		gamePanel.setFre(50);//时钟频率
 		gamePanel.setFallTime(4000);//方块下落时间
 		gamePanel.setTimeWidth(100);//按中的间隔
-		gamePanel.setTimePerfectWidth(25);//高级按中的间隔
+		gamePanel.setTimePerfectWidth(50);//高级按中的间隔
+		gamePanel.setBottom(30);
 		gamePanel.setFocusable(true);
 		add(gamePanel);
 		
@@ -39,7 +40,7 @@ public class Game extends JFrame
 		Game frame = new Game();
 		
 		frame.setTitle("AnimationDemo");
-		frame.setSize(400, 300);
+		frame.setSize(300, 400);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		

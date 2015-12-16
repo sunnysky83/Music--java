@@ -20,6 +20,7 @@ class GamePanel extends JPanel
 	private int timeFall = 4000;
 	private int timeWidth = 10; 
 	private int timePerfectWidth = 5; 
+	private int bottomHeight = 30;
 	private int time = 0;
 	private int end = 0;
 	private int blockWidth = 20;
@@ -52,7 +53,7 @@ class GamePanel extends JPanel
 	{
 		image = new Image[4];
 		for (int i=0; i<4; i++)
-			image[i] = this.getToolkit().createImage("1.jpg");
+			image[i] = this.getToolkit().createImage(i+".jpg");
 		
 		addKeyListener(new MyKeyListener());
 		
@@ -105,6 +106,11 @@ class GamePanel extends JPanel
 		this.timePerfectWidth = timePerfectWidth;
 	}
 	
+	public void setBottom(int bottomHeight)
+	{
+		this.bottomHeight = bottomHeight;
+	}
+	
 	public void addNode(int num, int time)//num: which track; time: millisecond
 	{
 		track.get(num).add(time);
@@ -127,6 +133,8 @@ class GamePanel extends JPanel
 		System.out.println("blockHeightHalf" + blockHeightHalf);
 		System.out.println("timePerfectWidth" + timePerfectWidth);
 		System.out.println("timeWidth" + timeWidth);
+		
+		requestFocus();
 	}
 	
 	public void stop()
@@ -143,7 +151,8 @@ class GamePanel extends JPanel
 		super.paintComponent(g);
 		
 		int width = getWidth();
-		int height = getHeight();
+		int realHeight = getHeight(); 
+		int height = realHeight-bottomHeight;
 		int widthLength = width/(num+1);
 		
 		int x0, y0;
@@ -162,7 +171,12 @@ class GamePanel extends JPanel
 			}
 		}
 		
-		g.drawString(""+score, 0, height);
+		if (timer!=null && timer.isRunning())
+		{
+			g.drawLine(0, height-blockHeightHalf, width, height-blockHeightHalf);
+			g.drawLine(0, height+blockHeightHalf, width, height+blockHeightHalf);
+		}
+		g.drawString(""+score, 0, realHeight);
 	}
 
 	class TimerListener implements ActionListener
@@ -193,7 +207,7 @@ class GamePanel extends JPanel
 			{
 				return ;
 			}
-//			System.out.println(""+t); 
+			System.out.println(""+t); 
 			for (int i=0; i<track.get(t).size(); i++)
 			{
 //				System.out.println(""+scored.get(t).get(i));
